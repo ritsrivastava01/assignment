@@ -1,41 +1,35 @@
-import { Card } from '@/components/Card';
-import { Configuration,PetsApi } from '@/generated';
-import { GetPetsResponseSchema } from '@/schemas/pets';
+import { Suspense } from 'react';
 
-import styles from './page.module.css';
+import { Card } from '@/components/Card';
+import { PageLayout } from '@/components/PageLayout';
+import { fetchPets } from '@/services/pet.service';
+
+import NoPetFound from '@/components/NoPetFound';
+import Loading from './loading';
 
 export default async function Home() {
-  const api = new PetsApi(new Configuration());
-  
-  const response = await api.petsGet();    
-  try {
-    const parsedPets = GetPetsResponseSchema.parse(response.data);
-    console.log(parsedPets);
+  const result = await fetchPets();
+
+  if (!result.success) {
+    throw new Error('Error on loading pets');
   }
-  catch (error) {
-   throw new Error('Error on loading pets');
+  const pets = result.data;
+  if (!pets || pets.length === 0) {
+    return <NoPetFound />;
   }
- 
 
   return (
-    <div>  
-     
-      <div className="main">
-       
-          <h1>Pets</h1>
+    <PageLayout>
+      <Suspense fallback={<Loading />}>
+        <h1>Pets</h1>
 
-          <h2>Results</h2>
-          <div className={styles.cardContainer}>
-            <Card name="Dann" image="/images/ES0AHRx.jpg" />
-            <Card name="Annemie" image="/images/wt5AGpR.jpg" />
-            <Card name="Daamin" image="/images/cL9Su9q.jpg" />
-            <Card name="Dann" image="/images/ES0AHRx.jpg" />
-            <Card name="Annemie" image="/images/wt5AGpR.jpg" />
-            <Card name="Daamin" image="/images/cL9Su9q.jpg" />
-          </div>
-       
-      </div>
-     
-    </div>
+        <h2>Results</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-28">
+          {pets.map(pet => (
+            <Card key={pet.id} name={pet.name} image={pet.photoUrl} />
+          ))}
+        </div>
+      </Suspense>
+    </PageLayout>
   );
 }

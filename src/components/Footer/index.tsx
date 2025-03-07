@@ -1,14 +1,9 @@
-import { Container } from '../Container'
-import styles from './index.module.css';
-
 const Footer = () => {
   return (
-      <div className={styles.footer}>
-
-      
-    <Container>&nbsp;</Container>
+    <div className="bg-Pistachio flex bottom-0 w-full  p-4 md:p-5  h-32 justify-center md:justify-start items-center">
+      Footer
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

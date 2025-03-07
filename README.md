@@ -1,4 +1,4 @@
-# Coolblue NextJS Assignment
+# NextJS Assignment
 
 In this assignment we would like you to build an amazing Pets web app using the provided mock-up designs. 🧑‍🏭
 
