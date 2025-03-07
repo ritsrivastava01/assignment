@@ -1,43 +1,33 @@
 'use server';
 
-import type { z } from 'zod';
-
-import { Configuration } from '@/generated';
-
-import type { BasePetSchema } from '../schemas/pets';
-import { GetPetsResponseSchema } from '../schemas/pets';
+import { Configuration, PetsApi } from '@/generated';
+import { z } from 'zod';
+import { BasePetSchema, GetPetsResponseSchema } from '../schemas/pets';
 
 const configuration = new Configuration({
   basePath: process.env.API_BASE_URL,
 });
+const api = new PetsApi(configuration);
 
-export type Pet = z.infer<typeof BasePetSchema>;
-
-export async function fetchPets(): Promise<{ success: boolean; data?: Pet[]; error?: string }> {
-  configuration;
+type Pets = z.infer<typeof BasePetSchema>;
+interface FetchPetsResponse {
+  success: boolean;
+  data?: Pets[];
+  error?: string;
+}
+export async function fetchPets(): Promise<FetchPetsResponse> {
   try {
-    console.log('Fetching pets from API...');
-    // eslint-disable-next-line compat/compat
-    const response = await fetch(`${configuration.basePath}/pets`, {
-      cache: 'force-cache',
-    });
+    const response = await api.petsGet();
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    const parsedResult = GetPetsResponseSchema.safeParse(data);
+    const parsedResult = GetPetsResponseSchema.safeParse(response.data);
 
     if (!parsedResult.success) {
-      // Zod parsing error
       const errorMessages = parsedResult.error.issues.map(issue => issue.message).join(', ');
       return { success: false, error: `Zod parsing error: ${errorMessages}` };
     }
 
     return { success: true, data: parsedResult.data };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching pets:', error);
     return {
       success: false,
