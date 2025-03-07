@@ -1,0 +1,8 @@
+
+
+@media (min-width: 768px) {
+  .cardContainer {
+    display: flex;
+    gap: 7rem;
+  }
+}
