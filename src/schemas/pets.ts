@@ -1,12 +1,15 @@
 import * as z from 'zod';
 
 // Define the species enum
-const SpeciesEnum = z.enum(['Dog', 'Cat', 'Rat']);
+export const SpeciesEnum = z.enum(['Dog', 'Cat', 'Rat']);
 
 // Base Pet Schema
 export const BasePetSchema = z.object({
   id: z.number(),
-  dateAdded: z.string(),
+  dateAdded: z.string().transform(val => {
+    const [day, month, year] = val.split('-').map(Number);
+    return new Date(year, month - 1, day); // Month is 0-indexed in Date constructor
+  }),
   name: z.string(),
   photoUrl: z.string(),
   species: SpeciesEnum,

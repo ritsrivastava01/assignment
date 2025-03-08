@@ -5,12 +5,39 @@
     "version": "1.0.0",
     "description": "API for retrieving pet information."
   },
-
   "paths": {
     "/pets": {
       "get": {
         "summary": "List all pets",
         "tags": ["Pets"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "species",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter pets by species"
+          },
+          {
+            "in": "query",
+            "name": "sortBy",
+            "schema": {
+              "type": "string",
+              "enum": ["name", "birthYear"]
+            },
+            "description": "Sort pets by a specific field"
+          },
+          {
+            "in": "query",
+            "name": "sortOrder",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"]
+            },
+            "description": "Sort order (ascending or descending)"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of pets.",

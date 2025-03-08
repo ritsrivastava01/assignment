@@ -15,9 +15,9 @@ interface FetchPetsResponse {
   data?: Pets[];
   error?: string;
 }
-export async function fetchPets(): Promise<FetchPetsResponse> {
+export async function fetchPets(searchQuery: string): Promise<FetchPetsResponse> {
   try {
-    const response = await api.petsGet();
+    const response = await api.petsGet(searchQuery, 'name');
 
     const parsedResult = GetPetsResponseSchema.safeParse(response.data);
 

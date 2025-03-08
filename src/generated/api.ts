@@ -82,10 +82,13 @@ export const PetsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * 
          * @summary List all pets
+         * @param {string} [species] Filter pets by species
+         * @param {PetsGetSortByEnum} [sortBy] Sort pets by a specific field
+         * @param {PetsGetSortOrderEnum} [sortOrder] Sort order (ascending or descending)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        petsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        petsGet: async (species?: string, sortBy?: PetsGetSortByEnum, sortOrder?: PetsGetSortOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/pets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -97,6 +100,18 @@ export const PetsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (species !== undefined) {
+                localVarQueryParameter['species'] = species;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (sortOrder !== undefined) {
+                localVarQueryParameter['sortOrder'] = sortOrder;
+            }
 
 
     
@@ -122,11 +137,14 @@ export const PetsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary List all pets
+         * @param {string} [species] Filter pets by species
+         * @param {PetsGetSortByEnum} [sortBy] Sort pets by a specific field
+         * @param {PetsGetSortOrderEnum} [sortOrder] Sort order (ascending or descending)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async petsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetPetsResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.petsGet(options);
+        async petsGet(species?: string, sortBy?: PetsGetSortByEnum, sortOrder?: PetsGetSortOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetPetsResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.petsGet(species, sortBy, sortOrder, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['PetsApi.petsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -144,11 +162,14 @@ export const PetsApiFactory = function (configuration?: Configuration, basePath?
         /**
          * 
          * @summary List all pets
+         * @param {string} [species] Filter pets by species
+         * @param {PetsGetSortByEnum} [sortBy] Sort pets by a specific field
+         * @param {PetsGetSortOrderEnum} [sortOrder] Sort order (ascending or descending)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        petsGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<GetPetsResponse>> {
-            return localVarFp.petsGet(options).then((request) => request(axios, basePath));
+        petsGet(species?: string, sortBy?: PetsGetSortByEnum, sortOrder?: PetsGetSortOrderEnum, options?: RawAxiosRequestConfig): AxiosPromise<Array<GetPetsResponse>> {
+            return localVarFp.petsGet(species, sortBy, sortOrder, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -163,14 +184,33 @@ export class PetsApi extends BaseAPI {
     /**
      * 
      * @summary List all pets
+     * @param {string} [species] Filter pets by species
+     * @param {PetsGetSortByEnum} [sortBy] Sort pets by a specific field
+     * @param {PetsGetSortOrderEnum} [sortOrder] Sort order (ascending or descending)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PetsApi
      */
-    public petsGet(options?: RawAxiosRequestConfig) {
-        return PetsApiFp(this.configuration).petsGet(options).then((request) => request(this.axios, this.basePath));
+    public petsGet(species?: string, sortBy?: PetsGetSortByEnum, sortOrder?: PetsGetSortOrderEnum, options?: RawAxiosRequestConfig) {
+        return PetsApiFp(this.configuration).petsGet(species, sortBy, sortOrder, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
+/**
+ * @export
+ */
+export const PetsGetSortByEnum = {
+    Name: 'name',
+    BirthYear: 'birthYear'
+} as const;
+export type PetsGetSortByEnum = typeof PetsGetSortByEnum[keyof typeof PetsGetSortByEnum];
+/**
+ * @export
+ */
+export const PetsGetSortOrderEnum = {
+    Asc: 'asc',
+    Desc: 'desc'
+} as const;
+export type PetsGetSortOrderEnum = typeof PetsGetSortOrderEnum[keyof typeof PetsGetSortOrderEnum];
 
 
