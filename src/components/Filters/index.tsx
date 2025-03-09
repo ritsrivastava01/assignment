@@ -46,7 +46,7 @@ const Filters = () => {
   return (
     <div className="flex gap-4 flex-col md:flex-row align-center md:items-center">
       <span className="text-black text-2xl font-bold hidden md:block">Quick Filter:</span>
-      <div className="border-2 flex-1 lg:flex-none border-gray rounded-full px-4">
+      <div className="border-2 flex-1 lg:flex-none border-gray rounded-full px-4 hover:border-vibrant-blue">
         <select
           id="species-select"
           data-testid="species-select"
@@ -70,7 +70,7 @@ const Filters = () => {
         data-testid="sort-latest-added"
         aria-label="Sort by latest added pets"
         href={toggleSort()}
-        className="flex flex-1 justify-center border-2 border-vibrant-blue rounded-full text-vibrant-blue items-center p-4 text-base text-center lg:flex-none"
+        className="flex flex-1 justify-center border-2 border-vibrant-blue rounded-full text-vibrant-blue items-center p-4 text-base text-center lg:flex-none hover:bg-vibrant-blue hover:text-white"
       >
         Latest Added
       </Link>

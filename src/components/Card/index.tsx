@@ -18,7 +18,7 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
           data-testid="image"
           src={photoUrl}
           alt={`Photo of ${name}`}
-          className="object-center object-cover md:rounded-2xl rounded-lg aspect-4/3 hover:shadow-lg hover:scale-105 transition-transform hover:cursor-pointer"
+          className="object-center object-cover md:rounded-2xl rounded-lg aspect-4/3 hover:drop-shadow-lg hover:scale-105 transition-transform hover:cursor-pointer"
           height={400}
           width={400}
         />
@@ -46,7 +46,7 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
       <Link
         data-testid="view-details"
         href="#petDetail"
-        className="hidden md:flex md:w-full lg:w-fit hover:shadow-lg bg-vibrant-blue text-white py-2 px-4 rounded-lg justify-center items-center min-w-32 text-2xl"
+        className="hidden md:flex md:w-full lg:w-fit hover:drop-shadow-lg bg-vibrant-blue text-white py-2 px-4 rounded-lg justify-center items-center min-w-32 text-2xl"
         aria-label={`View details about ${name}`}
       >
         View

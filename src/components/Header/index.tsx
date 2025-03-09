@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Header = () => {
   return (
-    <div className="bg-blue-sky  p-4 md:p-5 shadow-md drop-shadow-md" data-testid="header">
+    <div className="bg-blue-sky p-1 md:p-2 shadow-md drop-shadow-md" data-testid="header">
       <Image src={logo} alt="Pet Icon Logo" priority={true} />
     </div>
   );
