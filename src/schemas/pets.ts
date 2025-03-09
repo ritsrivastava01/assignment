@@ -6,10 +6,17 @@ export const SpeciesEnum = z.enum(['Dog', 'Cat', 'Rat']);
 // Base Pet Schema
 export const BasePetSchema = z.object({
   id: z.number(),
-  dateAdded: z.string().transform(val => {
-    const [day, month, year] = val.split('-').map(Number);
-    return new Date(year, month - 1, day); // Month is 0-indexed in Date constructor
-  }),
+  dateAdded: z
+    .string()
+    .transform(val => {
+      const [day, month, year] = val.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      if (isNaN(date.getDate())) {
+        return null;
+      }
+      return date;
+    })
+    .refine(date => date !== null, { message: 'Invalid Date' }),
   name: z.string(),
   photoUrl: z.string(),
   species: SpeciesEnum,
@@ -18,7 +25,7 @@ export const BasePetSchema = z.object({
     if (val.toString().toLowerCase() === 'yes') {
       return true;
     }
-    return val;
+    return Boolean(val);
   }),
   //available: z.boolean(),
   birthYear: z.number(),

@@ -1,21 +1,17 @@
-import { Suspense } from 'react';
-
-import { Card } from '@/components/Card';
+import Card from '@/components/Card';
+import Filters from '@/components/Filters';
 import NoPetFound from '@/components/NoPetFound';
 import { PageLayout } from '@/components/PageLayout';
 import { fetchPets } from '@/services/pet.service';
-
-import Filters from '@/components/Filters';
+import { Suspense } from 'react';
 import Loading from './loading';
 
 type HomeProps = {
-  readonly searchParams: Promise<{ species: string; sort: string }>;
+  readonly searchParams: { species: string; sort: string };
 };
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { species, sort } = await searchParams;
-
-  console.log(species, sort);
+  const { species, sort } = searchParams;
 
   const result = await fetchPets(species);
 
@@ -35,15 +31,24 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <PageLayout>
-      <Suspense fallback={<Loading />}>
-        <h1 className="text-3xl md:text-4xl font-bold py-8">Pets</h1>
+      <h1 className="text-3xl md:text-4xl font-bold py-8">Pets</h1>
+      <section aria-label="filter the pets by species">
         <Filters />
-        <h2 className="text-2xl md:text-3xl font-bold py-8">Results</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 md:gap-10 gap-4">
+      </section>
+      <h2 className="text-2xl md:text-3xl font-bold py-8">Results</h2>
+      <Suspense fallback={<Loading aria-live="polite" aria-busy="true" />}>
+        <ul
+          aria-label="Pet list sorted by name"
+          className="grid grid-cols-1 md:grid-cols-3 md:gap-10 gap-4"
+          aria-live="polite"
+          data-testid="pets"
+        >
           {pets.map(pet => (
-            <Card key={pet.id} {...pet} />
+            <li key={pet.id}>
+              <Card {...pet} />
+            </li>
           ))}
-        </div>
+        </ul>
       </Suspense>
     </PageLayout>
   );

@@ -18,7 +18,6 @@ interface FetchPetsResponse {
 export async function fetchPets(searchQuery: string): Promise<FetchPetsResponse> {
   try {
     const response = await api.petsGet(searchQuery, 'name');
-
     const parsedResult = GetPetsResponseSchema.safeParse(response.data);
 
     if (!parsedResult.success) {

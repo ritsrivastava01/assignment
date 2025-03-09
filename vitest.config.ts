@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react';
-import * as path from 'path';
+import path from 'path';
 import type { UserConfig } from 'vitest/config';
 import { defineConfig } from 'vitest/config';
 
@@ -12,6 +12,13 @@ export default defineConfig({
     watch: false,
     include: ['**/*.test.ts', '**/*.test.tsx'],
     exclude: ['node_modules/**/*'],
+    coverage: {
+      include: ['src/**/**', '!src/generated/**'],
+    },
     setupFiles: 'vite-setup.ts',
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@images': path.resolve(__dirname, './public'),
+    },
   },
 } as UserConfig);

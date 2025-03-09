@@ -3,7 +3,7 @@ import './globals.css';
 import { Open_Sans } from 'next/font/google';
 
 import Footer from '@/components/Footer';
-import { Header } from '@/components/Header';
+import Header from '@/components/Header';
 
 const openSans = Open_Sans({
   weight: ['400', '700'],

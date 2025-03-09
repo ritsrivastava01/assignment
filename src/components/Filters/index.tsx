@@ -26,13 +26,18 @@ const Filters = () => {
     <div className="flex gap-4 flex-col md:flex-row align-center">
       <div className="border-2 flex-1 lg:flex-none border-gray rounded-full px-4">
         <select
+          id="species-select"
+          data-testid="species-select"
           className="min-w-32 w-full py-4"
           onChange={handleSpeciesChange}
           value={searchParams.get('species') ?? 'all'}
+          aria-label="Select Pet Species"
         >
-          <option value="all">All Pets</option>
+          <option value="all" id="all-pets">
+            All Pets
+          </option>
           {speciesOptions.map(species => (
-            <option key={species} value={species}>
+            <option key={species} value={species} id={species}>
               {species}
             </option>
           ))}
@@ -40,6 +45,8 @@ const Filters = () => {
       </div>
 
       <Link
+        data-testid="sort-latest-added"
+        aria-label="Sort by latest added"
         href={{
           pathname,
           query: { ...Object.fromEntries(searchParams), sort: 'latestAdded' },
