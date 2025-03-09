@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 
 import { fetchPets } from '@/services/pet.service';
 
-import Home from '../page';
+import Home, { generateMetadata } from '../page';
 
 vi.mock('@/services/pet.service');
 vi.mock('@/components/Filters', () => ({
@@ -51,6 +51,27 @@ describe('Home Page', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  describe('generateMetadata', () => {
+    describe('when species is provided', () => {
+      it('should generate metadata with default title and description', () => {
+        const metadata = generateMetadata({ searchParams: { species: '', sort: '' } });
+
+        expect(metadata.title).toBe('Pets');
+        expect(metadata.description).toBe('Browse our collection of pets available for adoption.');
+        expect(metadata.other).toEqual({ pageType: 'Awesome Pets' });
+      });
+    });
+    describe('when searchParams is provided', () => {
+      it('should generate metadata with species title and description', () => {
+        const metadata = generateMetadata({ searchParams });
+
+        expect(metadata.title).toBe('Pets - Dog');
+        expect(metadata.description).toBe('Browse our collection of dog available for adoption.');
+        expect(metadata.other).toEqual({ pageType: 'Awesome Pets' });
+      });
+    });
   });
 
   it('renders the page with pets', async () => {
