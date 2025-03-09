@@ -36,8 +36,8 @@ describe('fetchPets', () => {
   });
 
   describe('Error handling', () => {
-    describe('API call', () => {
-      it('should return error response when API call fails', async () => {
+    describe('When API call fail', () => {
+      it('should return error response', async () => {
         // Arrange
         const errorMessage = 'API error';
         petsApiMock.petsGet.mockRejectedValue(new Error(errorMessage));
