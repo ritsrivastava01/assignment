@@ -1,7 +1,8 @@
 'use client';
-import { SpeciesEnum } from '@/schemas/pets';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { SpeciesEnum } from '@/schemas/pets';
 
 const Filters = () => {
   const speciesOptions = Object.values(SpeciesEnum.enum);
@@ -11,15 +12,35 @@ const Filters = () => {
 
   const handleSpeciesChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSpecies = event.target.value;
-    const params = new URLSearchParams(searchParams.toString());
+
+    const params = Object.fromEntries(searchParams.entries());
 
     if (selectedSpecies === 'all') {
-      params.delete('species');
+      delete params.species;
     } else {
-      params.set('species', selectedSpecies);
+      params.species = selectedSpecies;
     }
 
-    router.push(`${pathname}?${params.toString()}`);
+    const queryString = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .join('&');
+
+    router.push(`${pathname}?${queryString}`);
+  };
+
+  const toggleSort = () => {
+    const params = Object.fromEntries(searchParams.entries());
+
+    if (params.sort === 'latestAdded') {
+      delete params.sort;
+    } else {
+      params.sort = 'latestAdded';
+    }
+
+    return {
+      pathname,
+      query: params,
+    };
   };
 
   return (
@@ -47,10 +68,7 @@ const Filters = () => {
       <Link
         data-testid="sort-latest-added"
         aria-label="Sort by latest added"
-        href={{
-          pathname,
-          query: { ...Object.fromEntries(searchParams), sort: 'latestAdded' },
-        }}
+        href={toggleSort()}
         className="flex flex-1 justify-center border-2 border-vibrant-blue rounded-full text-vibrant-blue items-center p-4 text-base text-center lg:flex-none"
       >
         Latest Added

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* eslint-disable */
+ 
 /**
  * Pets API
  * API for retrieving pet information.

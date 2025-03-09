@@ -1,6 +1,9 @@
-import { fetchPets } from '@/services/pet.service';
 import { render, screen } from '@testing-library/react';
-import { Mock, vi } from 'vitest';
+import type { Mock} from 'vitest';
+import { vi } from 'vitest';
+
+import { fetchPets } from '@/services/pet.service';
+
 import Home from '../page';
 
 vi.mock('@/services/pet.service');
@@ -59,7 +62,7 @@ describe('Home Page', () => {
   });
 
   describe('when there are no pets', () => {
-    it('displays "No Pet Found" ', async () => {
+    it('displays "No Pet Found"', async () => {
       // Arrange
       mockFetchPets.mockResolvedValueOnce({ success: true, data: [] });
 
@@ -73,7 +76,7 @@ describe('Home Page', () => {
   });
 
   describe('when fetching pets fails', () => {
-    it('throws an error ', async () => {
+    it('throws an error', async () => {
       // Arrange
       mockFetchPets.mockResolvedValueOnce({ success: false });
       const mockSearchParams = {

@@ -1,9 +1,11 @@
+import { Suspense } from 'react';
+
 import Card from '@/components/Card';
 import Filters from '@/components/Filters';
 import NoPetFound from '@/components/NoPetFound';
 import { PageLayout } from '@/components/PageLayout';
 import { fetchPets } from '@/services/pet.service';
-import { Suspense } from 'react';
+
 import Loading from './loading';
 
 type HomeProps = {

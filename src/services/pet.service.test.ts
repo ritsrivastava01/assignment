@@ -1,8 +1,13 @@
 import { PetsApi } from '@/generated'; // Adjust the import path
+
 import { apiResponse, rawApiResponse } from './mock';
 import { fetchPets } from './pet.service'; // Adjust the import path
+
+interface MockPetsApi {
+  petsGet: ReturnType<typeof vi.fn>;
+}
 vi.mock('@/generated', () => {
-  const mockPetsApi = {
+  const mockPetsApi: MockPetsApi = {
     petsGet: vi.fn(),
   };
   return {
@@ -12,11 +17,10 @@ vi.mock('@/generated', () => {
 });
 
 describe('fetchPets', () => {
-  let petsApiMock: any;
+  let petsApiMock: MockPetsApi;
 
   beforeEach(() => {
-    petsApiMock = new PetsApi();
-    // No need to assign petsApiMock here
+    petsApiMock = new PetsApi() as unknown as MockPetsApi;
   });
   it('should return successful response with parsed data', async () => {
     // Arrange
@@ -47,7 +51,7 @@ describe('fetchPets', () => {
       });
     });
     describe('when Zod parsing fails', () => {
-      it('should return error response ', async () => {
+      it('should return error response', async () => {
         // Arrange
         const invalidData = [{ id: 'invalid', name: 'Buddy', species: 'snake' }]; // 'id' should be a number
         const mockResponse = { data: invalidData };

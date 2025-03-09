@@ -1,8 +1,11 @@
 'use server';
 
+import type { z } from 'zod';
+
 import { Configuration, PetsApi } from '@/generated';
-import { z } from 'zod';
-import { BasePetSchema, GetPetsResponseSchema } from '../schemas/pets';
+
+import type { BasePetSchema } from '../schemas/pets';
+import { GetPetsResponseSchema } from '../schemas/pets';
 
 const configuration = new Configuration({
   basePath: process.env.API_BASE_URL,
@@ -26,7 +29,7 @@ export async function fetchPets(searchQuery: string): Promise<FetchPetsResponse>
     }
 
     return { success: true, data: parsedResult.data };
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error fetching pets:', error);
     return {
       success: false,

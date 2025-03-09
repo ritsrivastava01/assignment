@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Mock, vi } from 'vitest';
+import type { Mock } from 'vitest';
+import { vi } from 'vitest';
+
 import Filters from './index';
 
 vi.mock('next/navigation', () => ({
@@ -22,7 +24,10 @@ vi.mock('@/schemas/pets', () => ({
 describe('Filters Component', () => {
   const mockPush = vi.fn();
   const mockPathname = '/';
-  const mockSearchParams = new URLSearchParams();
+  const mockSearchParams = {
+    get: vi.fn(),
+    entries: vi.fn(() => []),
+  };
 
   beforeEach(() => {
     (useRouter as Mock).mockReturnValue({ push: mockPush });
@@ -47,27 +52,31 @@ describe('Filters Component', () => {
     expect(options).toHaveLength(4);
   });
 
-  test('should update URL when species is selected', () => {
-    // Arrange
-    render(<Filters />);
-    const selectElement = screen.getByTestId('species-select');
+  describe('when species is selected', () => {
+    test('should update URL when species is selected', () => {
+      // Arrange
+      render(<Filters />);
+      const selectElement = screen.getByTestId('species-select');
 
-    // Act
-    fireEvent.change(selectElement, { target: { value: 'dog' } });
+      // Act
+      fireEvent.change(selectElement, { target: { value: 'dog' } });
 
-    // Assert
-    expect(mockPush).toHaveBeenCalledWith(`${mockPathname}?species=dog`);
+      // Assert
+      expect(mockPush).toHaveBeenCalledWith(`${mockPathname}?species=dog`);
+    });
   });
 
-  test('should update URL when "Latest Added" link is clicked', () => {
-    // Arrange
-    render(<Filters />);
-    const linkElement = screen.getByTestId('sort-latest-added');
+  describe('when "Latest Added" link is clicked', () => {
+    test('should update URL and add latestAdded parameter', () => {
+      // Arrange
+      render(<Filters />);
+      const linkElement = screen.getByTestId('sort-latest-added');
 
-    // Act
-    fireEvent.click(linkElement);
+      // Act
+      fireEvent.click(linkElement);
 
-    // Assert
-    expect(linkElement).toHaveAttribute('href', `${mockPathname}?sort=latestAdded`);
+      // Assert
+      expect(linkElement).toHaveAttribute('href', `${mockPathname}?sort=latestAdded`);
+    });
   });
 });

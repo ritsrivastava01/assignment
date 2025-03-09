@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import ErrorBoundary from '../error';
 
 describe('Error component', () => {
@@ -19,7 +20,7 @@ describe('Error component', () => {
   });
 
   describe('When error message is not provided', () => {
-    it('should render a default message ', () => {
+    it('should render a default message', () => {
       // Arrange
       render(<ErrorBoundary error={new Error()} />);
 

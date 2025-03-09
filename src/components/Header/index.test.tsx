@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import Header from './index';
 
 vi.mock('@images/icons/pet-icon.svg', () => ({

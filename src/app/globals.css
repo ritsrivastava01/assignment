@@ -1,22 +1,24 @@
+/* stylelint-disable */
 @import 'tailwindcss';
 
+/* stylelint-disable at-rule-no-unknown */
 @theme {
   --color-yellow: #f8cf47;
   --color-dark-yellow: #e0b833;
   --color-blue-sky: #93d9ff;
   --color-vibrant-blue: #007abc;
   --color-light-gray: #f0f0f0;
-  --color-gray: #dddddd;
-  --color-dark-gray: #666666;
+  --color-gray: #ddd;
+  --color-dark-gray: #666;
   --color-white: #fdfdfd;
   --color-black: #323232;
-  --color-Pistachio: #d4e098;
+  --color-pistachio: #d4e098;
 }
 
-/* html {
+html {
   font-size: 62.5%;
   line-height: 1.5;
-} */
+}
 
 html,
 body {
