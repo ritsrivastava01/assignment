@@ -11,7 +11,7 @@ type CardProps = Readonly<{
 
 const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
   return (
-    <div className="flex md:justify-between items-center md:items-start basis-1/3 md:gap-4 gap-2 md:flex-col flex-row">
+    <div className="flex md:justify-between items-center md:items-start basis-1/3 md:gap-4 gap-2 md:flex-col flex-row ">
       <div className="flex-[0_1_150px]">
         <Image
           priority={true}
@@ -26,26 +26,21 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
       <div className="gap-1 flex flex-col">
         <h3 className="text-color-black truncate md:text-2xl text-xl w-full" data-testid="name">
           <span aria-label="pet name">{`${name} `}</span>
-          <span className="text-lg text-gray-500" aria-label="pet species">
+          <span className="text-lg text-dark-gray" aria-label="pet species">
             {species && `(${species})`}
           </span>
         </h3>
 
         {dateAdded && (
           <span data-testid="date" aria-label="pet added date">
-            Added Date:{' '}
-            {dateAdded.toLocaleDateString(undefined, {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            Date Added: <time dateTime={dateAdded.toISOString()}> {formatDate(dateAdded)} </time>
           </span>
         )}
         <span data-testid="availability" aria-label="pet is available for adoption">
-          Available:{' '}
-          <span className={`${available ? 'text-green-700' : 'text-red-700'}`}>
+          {`Available: `}
+          <strong className={`${available ? 'text-green-tea' : 'text-red-700'}`}>
             {available ? 'Yes' : 'No'}
-          </span>
+          </strong>
         </span>
       </div>
       <Link
@@ -59,5 +54,14 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
     </div>
   );
 };
+
+function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  return new Intl.DateTimeFormat(undefined, options).format(date);
+}
 
 export default Card;

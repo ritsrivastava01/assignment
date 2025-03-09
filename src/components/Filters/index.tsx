@@ -44,7 +44,8 @@ const Filters = () => {
   };
 
   return (
-    <div className="flex gap-4 flex-col md:flex-row align-center">
+    <div className="flex gap-4 flex-col md:flex-row align-center md:items-center">
+      <span className="text-black text-2xl font-bold hidden md:block">Quick Filter:</span>
       <div className="border-2 flex-1 lg:flex-none border-gray rounded-full px-4">
         <select
           id="species-select"
