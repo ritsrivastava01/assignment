@@ -13,7 +13,7 @@ vi.mock('next/image', () => ({
 }));
 
 describe('Header Component', () => {
-  it.only('should render the header with the correct text', () => {
+  it('should render the header with the correct text', () => {
     // Arrange
     render(<Header />);
 

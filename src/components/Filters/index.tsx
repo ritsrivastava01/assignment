@@ -67,7 +67,7 @@ const Filters = () => {
 
       <Link
         data-testid="sort-latest-added"
-        aria-label="Sort by latest added"
+        aria-label="Sort by latest added pets"
         href={toggleSort()}
         className="flex flex-1 justify-center border-2 border-vibrant-blue rounded-full text-vibrant-blue items-center p-4 text-base text-center lg:flex-none"
       >

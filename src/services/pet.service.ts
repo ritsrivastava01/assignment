@@ -18,6 +18,12 @@ interface FetchPetsResponse {
   data?: Pets[];
   error?: string;
 }
+
+/**
+ * Fetches pets based on the search query.
+ * @param searchQuery - The search query to filter pets.
+ * @returns A promise that resolves to a FetchPetsResponse object.
+ */
 export async function fetchPets(searchQuery: string): Promise<FetchPetsResponse> {
   try {
     const response = await api.petsGet(searchQuery, 'name');

@@ -27,7 +27,6 @@ export const BasePetSchema = z.object({
     }
     return Boolean(val);
   }),
-  //available: z.boolean(),
   birthYear: z.number(),
 });
 

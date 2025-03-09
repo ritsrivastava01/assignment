@@ -25,15 +25,22 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
       </div>
       <div className="gap-1 flex flex-col">
         <h3 className="text-color-black truncate md:text-2xl text-xl w-full" data-testid="name">
-          <span aria-label="pet name">{name + ' '}</span>
+          <span aria-label="pet name">{`${name} `}</span>
           <span className="text-lg text-gray-500" aria-label="pet species">
-            ({species})
+            {species && `(${species})`}
           </span>
         </h3>
 
-        <span data-testid="date" aria-label="pet added date">
-          Added Date: {dateAdded?.toLocaleDateString()}
-        </span>
+        {dateAdded && (
+          <span data-testid="date" aria-label="pet added date">
+            Added Date:{' '}
+            {dateAdded.toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </span>
+        )}
         <span data-testid="availability" aria-label="pet is available for adoption">
           Available:{' '}
           <span className={`${available ? 'text-green-700' : 'text-red-700'}`}>
