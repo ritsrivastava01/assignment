@@ -46,6 +46,6 @@ describe('Card component', () => {
     const dateElement = screen.getByTestId('date');
 
     // Assert
-    expect(dateElement.innerText).toBe('Added Date: March 9, 2023');
+    expect(dateElement.innerText).toBe('Date Added: March 9, 2023');
   });
 });

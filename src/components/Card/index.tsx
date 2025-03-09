@@ -33,7 +33,7 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
 
         {dateAdded && (
           <span data-testid="date" aria-label="pet added date">
-            Date Added: <time dateTime={dateAdded.toISOString()}> {formatDate(dateAdded)} </time>
+            Date Added: <time dateTime={dateAdded.toISOString()}>{formatDate(dateAdded)}</time>
           </span>
         )}
         <span data-testid="availability" aria-label="pet is available for adoption">
