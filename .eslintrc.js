@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['simple-import-sort', 'jsx-a11y', '@typescript-eslint', 'compat',  ],
+  plugins: ['simple-import-sort', 'jsx-a11y', '@typescript-eslint', 'compat'],
   extends: [
     'next/core-web-vitals',
     'plugin:jsx-a11y/recommended',

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import type { Mock} from 'vitest';
+import type { Mock } from 'vitest';
 import { vi } from 'vitest';
 
 import { fetchPets } from '@/services/pet.service';

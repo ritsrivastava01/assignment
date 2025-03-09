@@ -3,8 +3,5 @@
   "singleQuote": true,
   "arrowParens": "avoid",
   "semi": true,
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-organize-imports"
-  ]
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-organize-imports"]
 }
