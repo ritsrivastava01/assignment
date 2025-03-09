@@ -8,6 +8,23 @@ import { fetchPets } from '@/services/pet.service';
 
 import Loading from './loading';
 
+export function generateMetadata({ searchParams }: HomeProps) {
+  const { species } = searchParams;
+
+  const title = species ? `Pets - ${species.charAt(0).toUpperCase() + species.slice(1)}` : 'Pets';
+  const description = species
+    ? `Browse our collection of ${species} available for adoption.`
+    : 'Browse our collection of pets available for adoption.';
+
+  return {
+    title,
+    description,
+    other: {
+      pageType: 'Awesome Pets',
+    },
+  };
+}
+
 type HomeProps = {
   readonly searchParams: { species: string; sort: string };
 };
