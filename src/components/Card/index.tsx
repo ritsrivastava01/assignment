@@ -17,7 +17,7 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
           priority={true}
           data-testid="image"
           src={photoUrl}
-          alt={name}
+          alt={`Photo of ${name}`}
           className="object-center object-cover md:rounded-2xl rounded-lg aspect-4/3 hover:shadow-lg hover:scale-105 transition-transform hover:cursor-pointer"
           height={400}
           width={400}
@@ -25,9 +25,8 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
       </div>
       <div className="gap-1 flex flex-col">
         <h3 className="text-color-black truncate md:text-2xl text-xl w-full" data-testid="name">
-          <span aria-label="pet name">{name}</span>
+          <span aria-label="pet name">{name + ' '}</span>
           <span className="text-lg text-gray-500" aria-label="pet species">
-            {' '}
             ({species})
           </span>
         </h3>
@@ -37,7 +36,7 @@ const Card = ({ name, photoUrl, dateAdded, species, available }: CardProps) => {
         </span>
         <span data-testid="availability" aria-label="pet is available for adoption">
           Available:{' '}
-          <span className={`${available ? 'text-green-500' : 'text-red-500'}`}>
+          <span className={`${available ? 'text-green-700' : 'text-red-700'}`}>
             {available ? 'Yes' : 'No'}
           </span>
         </span>
